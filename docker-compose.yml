@@ -1,0 +1,23 @@
+# This docker-compose file is used to run the project's published image
+#
+# Usage: docker-compose up [-d]
+#
+version: '3.4'
+
+networks:
+  reaction:
+    external:
+      name: reaction.localhost
+
+services:
+  nginx:
+    image: nginx:1.23.1
+    env_file:
+      - ./.env
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      default:
+      reaction:
+    ports:
+      - 80:80
